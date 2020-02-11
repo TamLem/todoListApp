@@ -1,0 +1,41 @@
+header {
+    background: hsl(0,0%,30%);
+    color: white;
+    padding: 20px;
+}
+
+#container {
+    margin-top: 100px;;
+    width:  70%;
+    margin-left: auto;
+    margin-right: auto;
+    /* border-style: solid; */
+    text-align: center;
+}
+ul {
+    /* border-style: solid; */
+    padding:0px;
+    width: 400px;
+    position: absolute;
+    left: 35%;
+    display: flex;
+    flex-wrap: wrap;
+}
+li {
+    list-style: none;
+    border-bottom: solid;
+    border-color: gray;
+    border-width: 1;
+    width: 400px;
+    padding: 20px;
+    
+    
+    display: inline-flex;
+    
+}
+
+.list-button {
+    display: inline-flex;
+    position: absolute;
+    right:0px;
+}

@@ -23,9 +23,7 @@ ul {
 }
 li {
     list-style: none;
-    border-bottom: solid;
-    border-color: gray;
-    border-width: 1;
+    
     width: 400px;
     padding: 20px;
     
@@ -38,4 +36,30 @@ li {
     display: inline-flex;
     position: absolute;
     right:0px;
+}
+
+.edit-button {
+    display: inline-flex;
+    position: absolute;
+    right:60px;
+}
+.done-button {
+    display: inline-flex;
+    position: absolute;
+    right:60px;
+}
+
+
+.list-text {
+    border-bottom: solid;
+    border-color: gray;
+    border-width: 1;
+    width: 250px;
+    text-align: left;
+    padding-bottom: 5px;
+
+}
+
+.edit-bar {
+    
 }

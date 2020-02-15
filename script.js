@@ -43,8 +43,16 @@ function addListItem () {
 
 // Code below deletes a list item
 
-document.addEventListener('click', editListItem)
+
+document.addEventListener('click', editdel, false)
 document.addEventListener('click', delListItem );
+
+function editdel (e) {
+    if(e.target.className = 'edit-button'){
+        (e.target.parentElement.querySelector('input').value=="")? editListItem(event) : fixEdit (event); 
+    }
+
+}
 
 function delListItem (e){
    if (e.target.className=="list-button"){
@@ -58,36 +66,53 @@ function delListItem (e){
 
 
 function editListItem (e) {
-    if (e.target.className=='edit-button') {
-        var editText = document.createElement('input');
+    
+        let editText = e.target.parentElement.querySelector('input');
         
-        var listItem = e.target.parentElement;
+        let listItem = e.target.parentElement;
         editText.value = listItem.querySelector('span').textContent;
-        listItem.querySelector('span').textContent = " ";
-        listItem.querySelector('span').appendChild(editText);
+        listItem.querySelector('span').innerHtml = editText;
+        console.log(listItem)
         
-        let editButton = e.target.parentElement.querySelector('.edit-button');
+        editText.style.display = 'inline';
+        console.log(editText);
+        e.target.innerText = "Done";
+        
+
+       // let editButton = e.target.parentElement.querySelector('.edit-button');
         
         
-        editButton.innerText = "Done";
-        editButton.className ="done-button";
+       // editButton.innerText = "Done";
+        //editButton.className ="done-button";
+
+       // return false;
+ }
+    
 
 
-        editButton.addEventListener('click', fixEdit);
-        editText.addEventListener('keyup', function(){checkEnter(event, fixEdit)});
 
-        function fixEdit () {
-            listItem = e.target.parentElement;
+       // editButton.addEventListener('click', fixEdit);
+      //  editText.addEventListener('keyup', function(){checkEnter(event, fixEdit)});
+
+function fixEdit (e) {
+       
+            let listItem = e.target.parentElement;
+            let editButton = e.target;
+            let editText = e.target.parentElement.querySelector('input')
             console.log(listItem)
-            listItem.querySelector('span').removeChild(editText) ;
-            listItem.querySelector('span').textContent = editText.value;
-            console.log("event worsks")
+            //listItem.querySelector('span').removeChild(editText) ;
+            listItem.querySelector('span').innerHtml = editText.value + editText;
+            editText.value ="";
+            editText.style.display='none'
+            console.log("event works")
             editButton.innerText = "Edit";
-            editButton.className ="edit-button";
-        }
-
-    }
+           
+           // editButton.className ="edit-button";
+        
+        
 }
+
+
 
 
 

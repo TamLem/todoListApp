@@ -37,6 +37,9 @@ li {
     position: absolute;
     right:0px;
 }
+.edit-input {
+    display: none;
+}
 
 .edit-button {
     display: inline-flex;

@@ -49,6 +49,10 @@ li {
     right:60px;
 }
 
+#edit-box {
+    display: none;
+}
+
 
 .list-text {
     border-bottom: solid;

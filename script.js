@@ -1,62 +1,72 @@
-// var items = document.getElementsByClassName("list-items");
-// console.log(items[0]);
-// items[1].textContent ="Go fishing";
-
-document.getElementById('add_button').addEventListener('click', addListItem);
-
-document.getElementById('input').addEventListener('keydown', function(){checkEnter(event, addListItem)});
-
-function checkEnter(e, toRun) { 
-    if(e.key=='Enter')  {
-        event.preventDefault();
-        toRun(); 
-                        }
-}
 
 
 
-let listDiv = document.getElementById("list");
 
-//code below add a list item
 
-function addListItem () { 
-    let newListItem = document.createElement('li');
-    newListItem.className = "list-item";
-   // console.log("button clicked");
 
-    let input = document.getElementById("input");
+//----------_event listener on document triggering multiple functions with conditions
 
-    if (input.value!=0) {
-        let userText = document.createTextNode(input.value)
-       
-        delButton = document.createElement('button');
-        delButton.className="list-button";
-        delButton.innerText="Del";
+document.addEventListener('click', function() {
+    event.preventDefault;
+    delListItem(event);
+    editFixList(event);
+    addListItem(event);
+})
 
-        editButton = document.createElement('button')
-        editButton.className = "edit-button"
-        editButton.innerText = "Edit"
+//----------end of section
 
-        newspan = document.createElement('span');
-        newspan.className = 'list-text'
-        newspan.appendChild(userText);
 
-        newListItem.appendChild(delButton);
-        newListItem.appendChild(editButton);
-        newListItem.appendChild(newspan);
+//---function adds to the list
+document.querySelector('#input').addEventListener('keydown', function(){
+    let addButton = document.querySelector('#add-button')
+    if(event.key=='Enter')  {
+        //event.preventDefault();
+        addButton.click();
+        
+}})
 
-        listDiv.appendChild(newListItem)
-        //console.log(newList)
-        input.value = " "
-    }
+
+function addListItem (e) { 
     
+    if (e.target.id =="add-button"){
+        let listDiv = document.querySelector('#list')
+        let newListItem = document.createElement('li');
+        newListItem.className = "list-item";
+    // console.log("button clicked");
+
+        let input = document.getElementById("input");
+
+        if (input.value!=0) {
+            let userText = document.createTextNode(input.value)
+        
+            delButton = document.createElement('button');
+            delButton.className="list-button";
+            delButton.innerText="Del";
+
+            editButton = document.createElement('button')
+            editButton.className = "edit-button"
+            editButton.innerText = "Edit"
+
+            newspan = document.createElement('span');
+            newspan.className = 'list-text'
+            newspan.appendChild(userText);
+
+            newListItem.appendChild(delButton);
+            newListItem.appendChild(editButton);
+            newListItem.appendChild(newspan);
+
+            listDiv.appendChild(newListItem)
+            //console.log(newList)
+            input.value = " "
+        }
+    }    
 }
 
-// Code below deletes a list item
+//------ end of FUnction--------------
 
 
-document.addEventListener('click', editDelList)
-document.addEventListener('click', delListItem );
+
+//----function deletes list item
 
 function delListItem (e){
    if (e.target.className=="list-button"){
@@ -67,14 +77,19 @@ function delListItem (e){
        }
    };
 }
+//---end of function
 
+
+
+
+
+//-------Sets of Functions enbale editing of inputs
 
 let editBox = document.querySelector('#edit-box');
 
-//editBox.event('keydown', function(){checkEnter(event, fixEdit)});
-//match event to the click event on the button
+document.addEventListener('click', editFixList)
 
-function editDelList (e) { 
+function editFixList (e) { 
     if(e.target.className=="edit-button") {
     //if there is input text trigger done else trigger edit
    // let editText = e.target.parentElement.querySelector('input');
@@ -83,6 +98,16 @@ function editDelList (e) {
     }
 }
 
+
+
+//match retun key event on the input to to the click event on the button
+editBox.addEventListener('keydown', function(){
+    let editButton = document.querySelector('.edit-button')
+    if(event.key=='Enter')  {
+        //event.preventDefault();
+        editButton.click();
+        console.log('click');
+}})
 
 function editListItem (e) {
  
@@ -118,9 +143,14 @@ function fixEdit (e) {
 
 }
 
+//-------end of functions
 
 
-//Insert a text element
+
+
+
+
+//Insert a random text element
 
 let header = document.querySelector('#header');
 

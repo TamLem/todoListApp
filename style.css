@@ -5,7 +5,7 @@ header {
 }
 
 #container {
-    margin-top: 100px;;
+    margin-top: 300px;;
     width:  70%;
     margin-left: auto;
     margin-right: auto;
@@ -26,9 +26,8 @@ li {
     
     width: 400px;
     padding: 20px;
-    
-    
     display: inline-flex;
+
     
 }
 
@@ -61,9 +60,29 @@ li {
     width: 250px;
     text-align: left;
     padding-bottom: 5px;
+    overflow-wrap: anywhere;
+    
+    
 
 }
 
 .edit-bar {
     
+}
+
+.login-container {
+    position: relative;
+    top: 50px;
+    right: 50px;
+    float: right;
+    border-style: solid;
+    border-color: gray;
+    border-width: 1px;
+    padding: 20px;
+    max-width: 300px;
+   
+}
+
+.form-element {
+    margin: 10px;
 }

@@ -1,5 +1,92 @@
 
 
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyCc4PehCMyP4EHHk5NcLDXA5jKAdisjScg",
+    authDomain: "todo-app-fcfa1.firebaseapp.com",
+    databaseURL: "https://todo-app-fcfa1.firebaseio.com",
+    projectId: "todo-app-fcfa1",
+    storageBucket: "todo-app-fcfa1.appspot.com",
+    messagingSenderId: "895891812916",
+    appId: "1:895891812916:web:99db9fa7f8702a0d889061",
+    measurementId: "G-NL6KP5YZVP"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+
+
+
+
+ 
+ var userRef = firebase.database().ref('userProfile');
+
+
+
+ 
+let loginButton = document.querySelector('#loginButton');
+/*
+loginButton.addEventListener('click', function(){
+    event.preventDefault();
+
+    var email = document.getElementById('email-input').value;
+    var password = document.getElementById('password-input').value;
+
+    saveUser(email, password);
+})
+ */
+
+loginButton.addEventListener('click', function(){
+    let loginForm = document.getElementById('loginForm');
+    loginForm.style.display = 'block';
+})
+
+
+
+function saveUser(email, password) {
+    let pusher = userRef.push();
+    pusher.set({
+        email: email,
+        password: password,
+    });
+}
+
+
+
+
+
+
+/* firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+  });
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40,20 +127,29 @@ function addListItem (e) {
             let userText = document.createTextNode(input.value)
         
             delButton = document.createElement('button');
-            delButton.className="list-button";
-            delButton.innerText="Del";
+            delButton.className="delete-button btn-small right-align";
+            delButton.innerHtml=`<i> class="material-icons">delete </i>`;
+            let delIcon  = document.createElement('i');
+            delIcon.className = 'material-icons';
+            delIcon.textContent= 'delete';
+            delButton.appendChild(delIcon);
+
 
             editButton = document.createElement('button')
-            editButton.className = "edit-button"
-            editButton.innerText = "Edit"
+            editButton.className = "edit-button btn-small right-align"
+            let editIcon  = document.createElement('i');
+            editIcon.className = 'material-icons';
+            editIcon.textContent= 'edit';
+            editButton.appendChild(editIcon);
 
             newspan = document.createElement('span');
-            newspan.className = 'list-text'
+            newspan.className = 'card-content-small list-text'
             newspan.appendChild(userText);
 
             newListItem.appendChild(delButton);
             newListItem.appendChild(editButton);
             newListItem.appendChild(newspan);
+            newListItem.className = "list-item card blue-grey lighten-2 white-text "
 
             listDiv.appendChild(newListItem)
             //console.log(newList)
@@ -69,10 +165,10 @@ function addListItem (e) {
 //----function deletes list item
 
 function delListItem (e){
-   if (e.target.className=="list-button"){
+   if (e.target.parentElement.classList.contains("delete-button")){
        if (confirm('Are your sure?')){
            console.log(e.target.parentElement);
-           let liItem = e.target.parentElement;
+           let liItem = e.target.parentElement.parentElement;
            list.removeChild(liItem);
        }
    };
@@ -87,10 +183,10 @@ function delListItem (e){
 
 let editBox = document.querySelector('#edit-box');
 
-document.addEventListener('click', editFixList)
+ 
 
 function editFixList (e) { 
-    if(e.target.className=="edit-button") {
+    if(e.target.parentElement.classList.contains("edit-button")) {
     //if there is input text trigger done else trigger edit
    // let editText = e.target.parentElement.querySelector('input');
         
@@ -105,38 +201,40 @@ editBox.addEventListener('keydown', function(){
     let editButton = document.querySelector('.edit-button')
     if(event.key=='Enter')  {
         //event.preventDefault();
-        editButton.click();
+        editButton.querySelector('i').click();
         console.log('click');
 }})
 
 function editListItem (e) {
  
         let editBox = document.querySelector('#edit-box');
-        let listItem = e.target.parentElement;
+        let listItem = e.target.parentElement.parentElement;
         editBox.value = listItem.querySelector('span').textContent;
-        console.log(editBox);
+        //console.log(editBox);
+        //console.log(listItem)
 
         listItem.querySelector('span').textContent="";
         listItem.querySelector('span').appendChild(editBox);
         editBox.style.display = 'inline';
-        console.log(listItem.querySelector('span'))
+        //console.log(listItem.querySelector('span'))
         
-        e.target.innerText = "Done";
+        e.target.innerText = "done";
+        console.log(e.target)
     
 }
 
 function fixEdit (e) {
-    let listItem = e.target.parentElement;
-    console.log(listItem)
+    let listItem = e.target.parentElement.parentElement;
+    //console.log(listItem)
 
     let editBox = document.querySelector('#edit-box')
-    console.log(editBox)
+    //console.log(editBox)
 
     document.querySelector('body').appendChild(editBox);
     listItem.querySelector('span').textContent = editBox.value ;
 
-    console.log("event works")
-    e.target.innerText = "Edit";
+    //console.log("event works")
+    e.target.innerText = "edit";
 
     editBox.value = "";
     editBox.style.display= 'none';

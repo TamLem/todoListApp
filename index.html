@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+
+</head>
+
+<body>
+  <div id="container" class="container">
+
+    <header id="header">
+      <h2>Todo List App</h2>
+    </header>
+
+
+
+    <nav>
+      <div class=" nav-wrapper teal lighten-7 blue-text">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class=""><a href="" id="loginButton">Login</a></li>
+          <li class=""><a href="">Logout</a></li>
+          <li class=""><a href="">SignUp!</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="loginForm" class="login center-align card white ">
+      <h2 class="center-align"> Login</h2>
+      <form action="" class="login-form">
+        <input type="email" name="login" class="form-element" id="email-input" value:""> Email </input>
+        <input type="password" class="center-align" name="login" class="form-element" id="password-input" value:""> Password</input>
+        <input type="submit" class="form-element btn center-align" id="loginFormButton" value="Login">
+      </form>
+    </div>
+
+
+
+
+
+    <div class=" todo-container center-align">
+
+      <div class="newtodo center-align">
+        <input type="text" name="input" id="input" class="input-field" value=" " />
+        <input type="submit" value="Add" class="btn" id="add-button" />
+      </div>
+
+      <ul class="center-align" id="list">
+        <li class="list-item card blue-grey lighten-2 white-text " id="list1">
+          <span class="card-content-small list-text">Shopping</span>
+          <button class="edit-button btn-small right-align"> <i class="material-icons"> edit</i></button><button
+            class="delete-button btn-small right-align"> <i class="material-icons"> delete </i></button>
+        </li>
+      </ul>
+    </div>
+
+    <input id="edit-box" value="" />
+  </div>
+
+
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script src="style.js"></script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

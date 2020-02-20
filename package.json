@@ -1,0 +1,32 @@
+{
+  "name": "todolistapp",
+  "version": "0.1.1",
+  "description": "Todo lsit app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TamLem/todoListApp.git"
+  },
+  "keywords": [
+    "todolist",
+    "dolist",
+    "util",
+    "organize"
+  ],
+  "author": "Tam Lem <tamirat.lemma@powercoders.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TamLem/todoListApp/issues"
+  },
+  "homepage": "https://github.com/TamLem/todoListApp#readme",
+  "dependencies": {
+    "firebase-tools": "^7.13.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}

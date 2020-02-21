@@ -1,6 +1,6 @@
 
 
-// Your web app's Firebase configuration
+/* // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyCc4PehCMyP4EHHk5NcLDXA5jKAdisjScg",
     authDomain: "todo-app-fcfa1.firebaseapp.com",
@@ -23,7 +23,7 @@ var firebaseConfig = {
  
  var userRef = firebase.database().ref('userProfile');
 
-
+ */
 
  
 let loginButton = document.querySelector('#loginButton');
@@ -39,20 +39,23 @@ loginButton.addEventListener('click', function(){
  */
 
 loginButton.addEventListener('click', function(){
-    let loginForm = document.getElementById('loginForm');
+    event.preventDefault();
+    let overlay = document.querySelector('#login-overlay')
+    overlay.style.display='block'
+    let loginForm = document.getElementById('login-form');
     loginForm.style.display = 'block';
 })
 
 
 
-function saveUser(email, password) {
+/* function saveUser(email, password) {
     let pusher = userRef.push();
     pusher.set({
         email: email,
         password: password,
     });
 }
-
+ */
 
 
 
@@ -68,20 +71,18 @@ function saveUser(email, password) {
 
 
 
+ //Todo list handler object, grabs user input add them to the object, sync with database, retreive from database
+
+
+ let todos = []
+
+ todos.push({ id:1, text:'Shopping', status: 'completed'})
 
 
 
+input = "Cooking";
 
-
-
-
-
-
-
-
-
-
-
+todos.push( {id:(todos.length > 0) ? todos[todos.length-1].id +1 : 1, text:input, status:'new'})
 
 
 
@@ -104,14 +105,18 @@ document.addEventListener('click', function() {
 
 
 //---function adds to the list
-document.querySelector('#input').addEventListener('keydown', function(){
+
+// thuis was used to trigger 'Enter' on the input, but upgraded with the builtin return on input functionality
+/* document.querySelector('#input').addEventListener('keydown', function(){
     let addButton = document.querySelector('#add-button')
     if(event.key=='Enter')  {
         //event.preventDefault();
         addButton.click();
         
 }})
+ */
 
+document.querySelector('#add-form').onsubmit = function (event) {return false;}
 
 function addListItem (e) { 
     
@@ -200,7 +205,7 @@ function editFixList (e) {
 editBox.addEventListener('keydown', function(){
     let editButton = document.querySelector('.edit-button')
     if(event.key=='Enter')  {
-        //event.preventDefault();
+        event.preventDefault();
         editButton.querySelector('i').click();
         console.log('click');
 }})

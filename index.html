@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
   <link rel="stylesheet" href="style.css" />
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+  
 
 
 </head>
 
 <body>
+
+  <div id="login-overlay" class = "valign-wrapper center-align">
+
+    <div id="login-form" class="login center-align card white col s6 ">
+      <h2 class="center-align"> Login</h2>
+      <form action="" class="login-form">
+        <div class="input-field">
+          <input type="email" name="login" class="validate" id="email-input" value:"">
+          <label for="email-input" class="for">Email</label>
+        </div>
+        <div class="input-field">
+          <input type="password" class="validate" name="login" class="form-element" id="password-input" value:""> 
+          <label for="password-input" class="for">Password</label>
+        </div>
+        <input type="submit" class="form-element btn center-align" id="loginFormButton" value="Login">
+      </form>
+    </div>
+  </div>
+
   <div id="container" class="container">
 
     <header id="header">
@@ -34,14 +53,8 @@
       </div>
     </nav>
 
-    <div id="loginForm" class="login center-align card white ">
-      <h2 class="center-align"> Login</h2>
-      <form action="" class="login-form">
-        <input type="email" name="login" class="form-element" id="email-input" value:""> Email </input>
-        <input type="password" class="center-align" name="login" class="form-element" id="password-input" value:""> Password</input>
-        <input type="submit" class="form-element btn center-align" id="loginFormButton" value="Login">
-      </form>
-    </div>
+
+
 
 
 
@@ -50,8 +63,10 @@
     <div class=" todo-container center-align">
 
       <div class="newtodo center-align">
-        <input type="text" name="input" id="input" class="input-field" value=" " />
-        <input type="submit" value="Add" class="btn" id="add-button" />
+        <form id="add-form">
+          <input type="text" name="input" id="input" class="input-field" value=" " autofocus/>
+          <input type="submit" value="Add" class="btn" id="add-button" />
+        </form>
       </div>
 
       <ul class="center-align" id="list">

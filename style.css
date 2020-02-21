@@ -69,13 +69,17 @@ header {
     
 }
 
-.login {
+#login-form {
     display: none;
+    position: absolute;
+    left: 30%;
+    top: 30%;
     padding: 40px;
-    max-width: 70%;
-    z-index: 9999; 
+    width: 40%;
     margin:0;
-   
+    opacity:1.0;
+    z-index: 9999;
+    
 }
 
 #loginFormButton {
@@ -83,7 +87,16 @@ header {
     position: ab;
     margin:0;
     margin-top: 10%; 
-   
+}
+
+#login-overlay {
+
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color:rgba(52, 54, 51,0.4);
+    z-index: 9999;
     
 }
 

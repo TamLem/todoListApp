@@ -17,20 +17,53 @@
 
 <body>
 
-  <div id="login-overlay" class = "valign-wrapper center-align">
+  <div id="" class="login-overlay  ">
+
+    <div id="signup-div" class="login center-align card white col s6 ">
+      <h2 class="center-align">Welcome</h2>
+      <form id="signup-form">
+        <div  class="input-field">
+          <input id="signup-name" type="text">
+          <label for="">Name</label>
+        </div>
+        <div class="input-field">
+          <input id="signup-email" type="email">
+          <label for="">Email</label>
+        </div>
+        <div class="input-field">
+          <input id="signup-form-password" type="password">
+          <label for="">Password</label>
+        </div>
+        <div class="input-field">
+          <input id="signup-form-confirm-password" type="password">
+          <label for="">Confirm Password</label>
+        </div>
+
+        <button class="btn btn-margin col s6 offset-s6" id="signup-form-btn">Sign Up!</button>
+
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div id="" class = "login-overlay">
 
     <div id="login-form" class="login center-align card white col s6 ">
       <h2 class="center-align"> Login</h2>
       <form action="" class="login-form">
         <div class="input-field">
-          <input type="email" name="login" class="validate" id="email-input" value:"">
+          <input type="email" name="login" class="validate" id="login-email" value:"">
           <label for="email-input" class="for">Email</label>
         </div>
         <div class="input-field">
-          <input type="password" class="validate" name="login" class="form-element" id="password-input" value:""> 
+          <input type="password" class="validate" name="login" class="form-element" id="login-password" value:""> 
           <label for="password-input" class="for">Password</label>
         </div>
-        <input type="submit" class="form-element btn center-align" id="loginFormButton" value="Login">
+        <input type="submit" class="form-element btn center-align" id="login-form-button" value="Login">
       </form>
     </div>
   </div>
@@ -46,19 +79,13 @@
     <nav>
       <div class=" nav-wrapper teal lighten-7 blue-text">
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class=""><a href="" id="loginButton">Login</a></li>
-          <li class=""><a href="">Logout</a></li>
-          <li class=""><a href="">SignUp!</a></li>
+          <li id="user-login-greeting" class='white-text'></li>
+          <li class=""><a href="" id="login-button">Login</a></li>
+          <li class=""><a href="" id="logout-button">Logout</a></li>
+          <li class=""><a href="" id="signupBtn">SignUp!</a></li>
         </ul>
       </div>
     </nav>
-
-
-
-
-
-
-
 
     <div class=" todo-container center-align">
 
@@ -90,6 +117,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-database.js"></script>
 
+  <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 

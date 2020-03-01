@@ -1,6 +1,3 @@
-
-
-/* // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyCc4PehCMyP4EHHk5NcLDXA5jKAdisjScg",
     authDomain: "todo-app-fcfa1.firebaseapp.com",
@@ -14,75 +11,145 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+//---------------------------------------------------------------------------------
+
+// Signup Section
+
+  var signupBtn = document.getElementById('signupBtn');
+  var signupForm = document.getElementById('signup-div');
+  var overlay = document.getElementsByClassName('login-overlay');
 
 
-
-
-
-
- 
- var userRef = firebase.database().ref('userProfile');
-
- */
-
- 
-let loginButton = document.querySelector('#loginButton');
-/*
-loginButton.addEventListener('click', function(){
+  // respond to Signup button on home page, popup signup form and overlays
+  signupBtn.onclick = function () {
     event.preventDefault();
+    overlay[0].style.display='block'
+    signupForm.style.display = 'block';
+  }
 
-    var email = document.getElementById('email-input').value;
-    var password = document.getElementById('password-input').value;
+  //Record form data and store it in variables
 
-    saveUser(email, password);
-})
- */
+  let signupFormButton = document.getElementById('signup-form-btn');
+ 
 
-loginButton.addEventListener('click', function(){
-    event.preventDefault();
-    let overlay = document.querySelector('#login-overlay')
-    overlay.style.display='block'
-    let loginForm = document.getElementById('login-form');
-    loginForm.style.display = 'block';
-})
+  signupFormButton.onclick = function () {
+      event.preventDefault();
+      var signupName = document.getElementById('signup-name').value;
+      let signupPassword = document.getElementById('signup-form-password').value;
+      let confirmPassword = document.getElementById('signup-form-confirm-password').value;
+      let email = document.getElementById('signup-email').value;
+      console.log(email + signupPassword + confirmPassword + signupName);
+    (signupPassword==confirmPassword)? signupPassword = confirmPassword : alert('The passwords you entered don\'t match');
 
+    firebase.auth().createUserWithEmailAndPassword(email, signupPassword).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code; 
+        var errorMessage = error.message;
+        // ...
+      });
 
-
-/* function saveUser(email, password) {
-    let pusher = userRef.push();
-    pusher.set({
-        email: email,
-        password: password,
-    });
+      
+    setTimeout(() => {
+        var user = firebase.auth().currentUser;
+        user.updateProfile ({
+            displayName: signupName,
+        }).then(function() {
+        // Update successful.
+        }).catch(function(error) {
+        // An error happened.
+        });
+        location.reload();
+    }, 1000);
+      
 }
- */
+
+//------------------      Login Section -------------------------
+
+var loginButton = document.querySelector('#login-button');
+let loginFormButton = document.querySelector('#login-form-button');
+var loginForm = document.getElementById('login-form');
+
+loginButton.addEventListener('click', function(){
+    event.preventDefault();
+    console.log('login clicked')
+    overlay[1].style.display='block';
+    loginForm.style.display = 'block';  
+})
+
+loginFormButton.addEventListener('click', function(){
+    event.preventDefault();
+
+    let email = document.getElementById('login-email').value;
+    let password = document.getElementById('login-password').value;
+
+    //saveUser(email, password);
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+       
+
+      });
+})
 
 
 
+//-------------------- Log out ----------------------
+
+let logoutButton = document.getElementById('logout-button')
+
+logoutButton.onclick = function () {
+    event.preventDefault();
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {    
+        // An error happened.
+      });
+      location.reload();
+}
 
 
-/* firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
+//------------------- Login Observer -------------------
+
+var userGreeting = document.getElementById('user-login-greeting')
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+       
+      // User is signed in.
+      overlay[0].style.display = 'none';
+      overlay[1].style.display = 'none';
+      loginForm.style.display = 'none'; 
+      loginButton.style.display = 'none'; 
+      signupBtn.style.display = 'none';
+      userGreeting.innerText = `Hello ${user.displayName}!`    
+      signupForm.style.display = 'none';
+
+
+    } else {
+      // No user is signed in.
+    }
   });
- */
+
 
 
 
  //Todo list handler object, grabs user input add them to the object, sync with database, retreive from database
 
-
- let todos = []
-
- todos.push({ id:1, text:'Shopping', status: 'completed'})
+//Firebase database 
 
 
 
-input = "Cooking";
 
-todos.push( {id:(todos.length > 0) ? todos[todos.length-1].id +1 : 1, text:input, status:'new'})
+
+//------ view function, retrieve database 
+
+
+
+
+//------- end of view function -------
 
 
 
@@ -104,6 +171,12 @@ document.addEventListener('click', function() {
 //----------end of section
 
 
+
+
+
+
+
+
 //---function adds to the list
 
 // thuis was used to trigger 'Enter' on the input, but upgraded with the builtin return on input functionality
@@ -113,10 +186,13 @@ document.addEventListener('click', function() {
         //event.preventDefault();
         addButton.click();
         
-}})
- */
+    }})
+    */
 
 document.querySelector('#add-form').onsubmit = function (event) {return false;}
+
+
+let todos = []
 
 function addListItem (e) { 
     
@@ -129,7 +205,11 @@ function addListItem (e) {
         let input = document.getElementById("input");
 
         if (input.value!=0) {
-            let userText = document.createTextNode(input.value)
+            let userText = input.value;
+            todos.push( {id:(todos.length > 0) ? todos.length + 1 : 1, text:userText, status:'new'})
+            console.log(todos);
+            firebase.database().ref().child(firebase.auth().currentUser.displayName).child('todos').set(todos)
+
         
             delButton = document.createElement('button');
             delButton.className="delete-button btn-small right-align";
@@ -149,7 +229,8 @@ function addListItem (e) {
 
             newspan = document.createElement('span');
             newspan.className = 'card-content-small list-text'
-            newspan.appendChild(userText);
+            //newspan.appendChild(userText);
+            newspan.textContent = todos[todos.length-1].text;
 
             newListItem.appendChild(delButton);
             newListItem.appendChild(editButton);
@@ -164,7 +245,6 @@ function addListItem (e) {
 }
 
 //------ end of FUnction--------------
-
 
 
 //----function deletes list item

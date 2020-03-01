@@ -1,0 +1,9 @@
+- grab user todo entries in an object
+- load object to database
+- load object on user login
+    - write a todos view function which is going to view the todos by retrieving from database
+
+// for each entry in the user databse, call add function and pass the todo object
+//render the todo object from database
+//rewrite the add input method to support database rendering and userinput together
+// write another function to handle input from the user and pass to the add to list function

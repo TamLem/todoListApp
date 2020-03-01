@@ -1,0 +1,21 @@
+#signup-form {
+    width: 400px;
+    position: absolute;
+    left:40%;
+    top: 20%;
+    border: rgb(204, 203, 203);
+    border-style: solid;
+    border-width: 0.01 mm;
+    padding: 40px;
+    background: white;
+}
+
+.btn-margin {
+    position: relative;
+    margin-top: 20px;
+    left: 40%;
+}
+
+body {
+    background:rgba(52, 54, 51,0.4);
+}

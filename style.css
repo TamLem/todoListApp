@@ -1,3 +1,10 @@
+body {
+    width: 100%;
+    height:
+}
+
+
+
 header {
     background: hsl(0,0%,30%);
     color: white;
@@ -5,7 +12,7 @@ header {
 }
 
 .todo-container {
-    margin-top: 30%;
+    margin-top: 10%;
     width:  50%;
     margin-left: auto;
     margin-right: auto;
@@ -69,13 +76,13 @@ header {
     
 }
 
-#login-form {
+#login-form, #signup-div {
     display: none;
     position: absolute;
     left: 30%;
     top: 30%;
     padding: 40px;
-    width: 40%;
+    width: 30%;
     margin:0;
     opacity:1.0;
     z-index: 9999;
@@ -89,12 +96,12 @@ header {
     margin-top: 10%; 
 }
 
-#login-overlay {
+.login-overlay {
 
     display: none;
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color:rgba(52, 54, 51,0.4);
     z-index: 9999;
     
@@ -102,4 +109,12 @@ header {
 
 .form-element {
     margin: 10px;
+}
+
+iframe {
+    position: fixed;
+    width:100vw;
+    height:100vw;
+    z-index: 9999;
+    display: none;
 }

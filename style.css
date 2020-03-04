@@ -107,6 +107,9 @@ header {
     
 }
 
+#logout-button{
+    display: none;
+}
 .form-element {
     margin: 10px;
 }

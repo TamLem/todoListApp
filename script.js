@@ -31,10 +31,10 @@ var firebaseConfig = {
 
   let signupFormButton = document.getElementById('signup-form-btn');
  
-
+  let signupName;
   signupFormButton.onclick = function () {
       event.preventDefault();
-      var signupName = document.getElementById('signup-name').value;
+       signupName = document.getElementById('signup-name').value;
       let signupPassword = document.getElementById('signup-form-password').value;
       let confirmPassword = document.getElementById('signup-form-confirm-password').value;
       let email = document.getElementById('signup-email').value;
@@ -49,7 +49,7 @@ var firebaseConfig = {
       });
 
       
-    setTimeout(() => {
+ /*    setTimeout(() => {
         var user = firebase.auth().currentUser;
         user.updateProfile ({
             displayName: signupName,
@@ -58,8 +58,13 @@ var firebaseConfig = {
         }).catch(function(error) {
         // An error happened.
         });
+        
+        var uid = firebase.auth().currentUser.uid;
+        firebase.database().ref(uid+'/').set('todos')
         location.reload();
-    }, 1000);
+    }, 4000);
+ */
+   
       
 }
 
@@ -98,7 +103,7 @@ loginFormButton.addEventListener('click', function(){
 
 //-------------------- Log out ----------------------
 
-let logoutButton = document.getElementById('logout-button')
+var logoutButton = document.getElementById('logout-button')
 
 logoutButton.onclick = function () {
     event.preventDefault();
@@ -112,27 +117,79 @@ logoutButton.onclick = function () {
 
 
 //------------------- Login Observer -------------------
+var uid;
 
 var userGreeting = document.getElementById('user-login-greeting')
-
+var userTodos = [0];
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
        
-      // User is signed in.
-      overlay[0].style.display = 'none';
-      overlay[1].style.display = 'none';
-      loginForm.style.display = 'none'; 
-      loginButton.style.display = 'none'; 
-      signupBtn.style.display = 'none';
-      userGreeting.innerText = `Hello ${user.displayName}!`    
-      signupForm.style.display = 'none';
-
-
+    //operations for a new user, create database object, setup name
+    //should be restricted to new signup 
+        if (user.displayName==null){
+            
+            var user = firebase.auth().currentUser;
+            user.updateProfile ({
+                displayName: signupName,
+            }).then(function() {
+            // Update successful.
+            }).catch(function(error) {
+            // An error happened.
+            });
+            
+             uid = firebase.auth().currentUser.uid;
+            
+            firebase.database().ref(uid+'/todos/').set(userTodos)
+            setTimeout(() => {
+                location.reload(); 
+            }, 1000);  //needs fix
+        }
+        // User is signed in.
+        
+            
+        overlay[0].style.display = 'none';
+        overlay[1].style.display = 'none';
+        loginForm.style.display = 'none'; 
+        loginButton.style.display = 'none'; 
+        signupBtn.style.display = 'none';
+        signupForm.style.display = 'none';
+        logoutButton.style.display = 'initial';
+        userGreeting.innerText = `Hello ${user.displayName}!`    
+        
+        loadDatabase();
+        
+        
     } else {
-      // No user is signed in.
+        // No user is signed in.
     }
-  });
+});
 
+function loadDatabase () {
+    //get database from cloud
+    setTimeout(() => {
+        
+    }, 2000);
+     uid = firebase.auth().currentUser.uid;
+
+    firebase.database().ref(uid+'/todos/').once('value').then(function(data){
+       
+        userTodos = data.val();
+
+        // moving this into the .then fixed the loadDatabase function, why?
+        if (userTodos[0]!=0) {
+            for (item of userTodos) {
+                console.log(item);
+                renderListItem(item);
+            }
+        }
+    
+    })
+    
+    //Fe existing user with data render eash todolist in the document
+
+   
+
+}
 
 
 
@@ -165,11 +222,90 @@ document.addEventListener('click', function() {
     event.preventDefault;
     delListItem(event);
     editFixList(event);
-    addListItem(event);
+   // addListItem(event);
 })
 
 //----------end of section
 
+let addTodoButton = document.getElementById('add-button');
+
+addTodoButton.onclick = () => {event.preventDefault; handleUserInput();} 
+
+function handleUserInput () {
+    let input = document.getElementById("input");
+    if (input.value!=0) {
+    let userText = input.value;
+    //let todoEntry = {id:id, text:userText, status:'new'}
+    
+    //pass the above to update database
+    updateDatabase(userText);
+}
+    input.value = " "
+}
+
+
+function updateDatabase (userText){
+       
+    userText = userText;
+
+    if (userTodos[0]==0) {
+        userTodos.push( {id:1, text:userText, status:'new'})
+        userTodos.shift();
+        console.log(userTodos);
+        firebase.database().ref(uid+'/todos/').set(userTodos);
+    }
+    else {
+        userTodos.push( {id: userTodos.length + 1, text:userText, status:'new'})
+        console.log(userTodos);
+        let pushIndex = userTodos.length-1;
+        //add on the last entry to the database
+        firebase.database().ref(uid+'/todos/' + pushIndex).set(userTodos[pushIndex]);
+    }
+
+    renderListItem(userTodos[userTodos.length-1]); // render on page, last entry
+    
+}
+
+
+function renderListItem(obj) { 
+    
+        let listDiv = document.querySelector('#list')
+        let newListItem = document.createElement('li');
+        newListItem.className = "list-item";
+                  
+        let userText = obj.text;
+    
+        delButton = document.createElement('button');
+        delButton.className="delete-button btn-small right-align";
+        delButton.innerHtml=`<i> class="material-icons">delete </i>`;
+        let delIcon  = document.createElement('i');
+        delIcon.className = 'material-icons';
+        delIcon.textContent= 'delete';
+        delButton.appendChild(delIcon);
+
+
+        editButton = document.createElement('button')
+        editButton.className = "edit-button btn-small right-align"
+        let editIcon  = document.createElement('i');
+        editIcon.className = 'material-icons';
+        editIcon.textContent= 'edit';
+        editButton.appendChild(editIcon);
+
+        newspan = document.createElement('span');
+        newspan.className = 'card-content-small list-text'
+        //newspan.appendChild(userText);
+        newspan.textContent = userText;
+
+        newListItem.appendChild(delButton);
+        newListItem.appendChild(editButton);
+        newListItem.appendChild(newspan);
+        newListItem.className = "list-item card blue-grey lighten-2 white-text "
+
+        listDiv.appendChild(newListItem)
+        //console.log(newList)
+          
+        
+}    
 
 
 
@@ -192,59 +328,6 @@ document.addEventListener('click', function() {
 document.querySelector('#add-form').onsubmit = function (event) {return false;}
 
 
-let todos = []
-
-function addListItem (e) { 
-    
-    if (e.target.id =="add-button"){
-        let listDiv = document.querySelector('#list')
-        let newListItem = document.createElement('li');
-        newListItem.className = "list-item";
-    // console.log("button clicked");
-
-        let input = document.getElementById("input");
-
-        if (input.value!=0) {
-            let userText = input.value;
-            todos.push( {id:(todos.length > 0) ? todos.length + 1 : 1, text:userText, status:'new'})
-            console.log(todos);
-            firebase.database().ref().child(firebase.auth().currentUser.displayName).child('todos').set(todos)
-
-        
-            delButton = document.createElement('button');
-            delButton.className="delete-button btn-small right-align";
-            delButton.innerHtml=`<i> class="material-icons">delete </i>`;
-            let delIcon  = document.createElement('i');
-            delIcon.className = 'material-icons';
-            delIcon.textContent= 'delete';
-            delButton.appendChild(delIcon);
-
-
-            editButton = document.createElement('button')
-            editButton.className = "edit-button btn-small right-align"
-            let editIcon  = document.createElement('i');
-            editIcon.className = 'material-icons';
-            editIcon.textContent= 'edit';
-            editButton.appendChild(editIcon);
-
-            newspan = document.createElement('span');
-            newspan.className = 'card-content-small list-text'
-            //newspan.appendChild(userText);
-            newspan.textContent = todos[todos.length-1].text;
-
-            newListItem.appendChild(delButton);
-            newListItem.appendChild(editButton);
-            newListItem.appendChild(newspan);
-            newListItem.className = "list-item card blue-grey lighten-2 white-text "
-
-            listDiv.appendChild(newListItem)
-            //console.log(newList)
-            input.value = " "
-        }
-    }    
-}
-
-//------ end of FUnction--------------
 
 
 //----function deletes list item

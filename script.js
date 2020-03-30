@@ -187,8 +187,6 @@ function loadDatabase () {
     
     //Fe existing user with data render eash todolist in the document
 
-   
-
 }
 
 
@@ -199,16 +197,12 @@ function loadDatabase () {
 
 
 
-
-
 //------ view function, retrieve database 
 
 
 
 
 //------- end of view function -------
-
-
 
 
 
@@ -280,6 +274,7 @@ function renderListItem(obj) {
         delButton.innerHtml=`<i> class="material-icons">delete </i>`;
         let delIcon  = document.createElement('i');
         delIcon.className = 'material-icons';
+        delIcon.id = obj.id;
         delIcon.textContent= 'delete';
         delButton.appendChild(delIcon);
 
@@ -288,6 +283,7 @@ function renderListItem(obj) {
         editButton.className = "edit-button btn-small right-align"
         let editIcon  = document.createElement('i');
         editIcon.className = 'material-icons';
+        editIcon.id = obj.id;
         editIcon.textContent= 'edit';
         editButton.appendChild(editIcon);
 
@@ -338,6 +334,7 @@ function delListItem (e){
            console.log(e.target.parentElement);
            let liItem = e.target.parentElement.parentElement;
            list.removeChild(liItem);
+           
        }
    };
 }

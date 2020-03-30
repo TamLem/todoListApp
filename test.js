@@ -152,3 +152,7 @@ function addListItem (e) {
     }    
 }
 
+
+//delete functionality
+firebase.database().ref(uid +`/todos/${id-2}/status`).set('deleted')
+

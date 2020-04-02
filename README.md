@@ -9,4 +9,4 @@ To do list app
 
 Thanks to Netlify you can test the site (still in development) here
 
-https://app.netlify.com/sites/epic-meitner-b35b59/overview
+https://epic-meitner-b35b59.netlify.com/

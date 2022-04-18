@@ -24,7 +24,7 @@
   "homepage": "https://github.com/TamLem/todoListApp#readme",
   "dependencies": {
     "firebase-tools": "^7.13.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
